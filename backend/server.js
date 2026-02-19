@@ -147,6 +147,7 @@ function optionalAuth(req, res, next) {
  */
 app.post('/api/auth/register', async (req, res) => {
     try {
+        console.log('Register request body:', req.body)
         const { username, password } = req.body
 
         if (!username || typeof username !== 'string' || username.trim().length < 2 || username.trim().length > 20) {
@@ -214,6 +215,7 @@ app.post('/api/auth/register', async (req, res) => {
  */
 app.post('/api/auth/login', async (req, res) => {
     try {
+        console.log('Login request body:', req.body)
         const { username, password } = req.body
 
         if (!username || !password) {
@@ -270,6 +272,7 @@ app.post('/api/auth/login', async (req, res) => {
  */
 app.post('/api/auth/logout', authenticateToken, async (req, res) => {
     try {
+        console.log('Logout request for user:', req.user.username)
         await supabase
             .from('players')
             .update({ is_online: false, last_logout: new Date().toISOString() })

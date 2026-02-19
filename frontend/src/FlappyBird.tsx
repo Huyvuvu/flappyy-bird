@@ -1,7 +1,7 @@
 import type React from "react"
 import { useEffect, useRef, useState, useCallback } from "react"
 
-const API_BASE = "http://localhost:3001"
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001"
 
 interface LeaderboardEntry {
     player_name: string
@@ -115,6 +115,7 @@ export default function FlappyBird() {
             })
             const data = await res.json()
             if (!res.ok) {
+                console.error("Auth failed:", data)
                 setAuthError(data.error || "Something went wrong")
                 return
             }
@@ -124,8 +125,9 @@ export default function FlappyBird() {
             setShowAuth(false)
             setAuthUsername("")
             setAuthPassword("")
-        } catch {
-            setAuthError("Network error")
+        } catch (err) {
+            console.error("Auth network error:", err)
+            setAuthError("Network error. Check console.")
         } finally {
             setAuthLoading(false)
         }
