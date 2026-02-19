@@ -1,0 +1,274 @@
+/* Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f4f6;
+  min-height: 100vh;
+}
+
+/* Layout */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.canvas-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.game-canvas {
+  border: 1px solid #d1d5db;
+  touch-action: none;
+}
+
+.hint {
+  margin-top: 16px;
+  font-size: 18px;
+  text-align: center;
+  color: #374151;
+}
+
+@media (max-width: 767px) {
+  .hint {
+    display: none;
+  }
+  .game-canvas {
+    border: none;
+  }
+}
+
+/* Loading / Error */
+.loading,
+.error {
+  text-align: center;
+  padding: 16px;
+}
+
+.loading-title,
+.error-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.error-title {
+  color: #dc2626;
+}
+
+.loading-subtitle {
+  color: #6b7280;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.error-message {
+  color: #374151;
+  margin-bottom: 16px;
+}
+
+.btn-retry {
+  padding: 8px 16px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn-retry:hover {
+  background: #2563eb;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Game Over Overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+.overlay-panel {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 16px;
+  padding: 20px 24px;
+  width: 240px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.overlay-header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.game-over-text {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ff6b6b;
+}
+
+.final-score {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 4px;
+  color: #ffd93d;
+}
+
+.score-label {
+  font-size: 11px;
+  color: #8899aa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Submit Section */
+.submit-section {
+  margin-bottom: 14px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
+.name-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #e94560 0%, #c23152 100%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-submit.disabled {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: wait;
+}
+
+.submitted-msg {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #4ade80;
+}
+
+/* Leaderboard */
+.leaderboard {
+  margin-bottom: 4px;
+}
+
+.leaderboard-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #8899aa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.leaderboard-list {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.lb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 6px;
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+.lb-row.gold {
+  background: rgba(255, 217, 61, 0.12);
+}
+.lb-row.top3 {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lb-name {
+  color: #8899aa;
+}
+.lb-row.gold .lb-name,
+.lb-row.top3 .lb-name {
+  font-weight: bold;
+}
+.lb-row.gold .lb-name {
+  color: #ffd93d;
+}
+.lb-row.top3 .lb-name {
+  color: #e2e8f0;
+}
+
+.lb-score {
+  font-weight: bold;
+  color: #e2e8f0;
+  font-variant-numeric: tabular-nums;
+}
+.lb-row.gold .lb-score {
+  color: #ffd93d;
+}
+
+/* Restart Button */
+.btn-restart {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-restart:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
